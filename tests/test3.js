@@ -3,12 +3,12 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 
 const frameworks = [
-    { name: 'Express', dir: '../express', port: 3001, url: 'http://localhost:3001/json' },
-    { name: 'Fastify', dir: '../fastify', port: 3000, url: 'http://localhost:3000/json' },
-    { name: 'Sails', dir: '../sails', port: 3002, url: 'http://localhost:3002/json' },
-    { name: 'Restify', dir: '../restify', port: 3003, url: 'http://localhost:3003/json' },
-    { name: 'Koa', dir: '../koa', port: 3004, url: 'http://localhost:3004/json' },
-    { name: 'NestJS', dir: '../nest/nest', port: 3005, url: 'http://localhost:3005/json' }
+    { name: 'Express', dir: '../express', port: 3001, url: 'http://localhost:3001/pdf/2' },
+    { name: 'Fastify', dir: '../fastify', port: 3000, url: 'http://localhost:3000/pdf/2' },
+    { name: 'Sails', dir: '../sails', port: 3002, url: 'http://localhost:3002/pdf/2' },
+    { name: 'Restify', dir: '../restify', port: 3003, url: 'http://localhost:3003/pdf/2' },
+    { name: 'Koa', dir: '../koa', port: 3004, url: 'http://localhost:3004/pdf/2' },
+    { name: 'NestJS', dir: '../nest/nest', port: 3005, url: 'http://localhost:3005/pdf/2' }
 ];
 
 async function testFramework(framework) {
@@ -53,8 +53,8 @@ async function testFramework(framework) {
         const result = await new Promise(resolve => {
             const instance = autocannon({ 
                 url: framework.url,
-                connections: 50,
-                duration: 4,
+                connections: 200,
+                duration: 40,
                 pipelining: 10
             });
             instance.on('done', resolve);
