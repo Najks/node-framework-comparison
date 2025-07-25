@@ -1,0 +1,7 @@
+Framework,RPS,Throughput_KB/s,Memory_MB,Latency_ms
+Fastify,29849,5480,6,33.2
+Restify,22021,4215,6,44.9
+Koa,18346,3350,6,54
+Express,6466,1446,6,153.8
+NestJS,5197,1279,7,191.2
+Sails,2210,619,6,450.2

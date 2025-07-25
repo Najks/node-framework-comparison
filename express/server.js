@@ -4,23 +4,19 @@ const fs = require('fs');
 
 const app = express();
 
-// Disable X-Powered-By header for performance
 app.disable('x-powered-by');
 
-// Create uploads directory
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Root endpoint
 app.get('/', (req, res) => {
   res
     .type('application/json')
     .send({ hello: 'world' });
 });
 
-// Static Hello World route for performance testing
 app.get('/json', (req, res) => {
   res
     .type('application/json')
@@ -43,7 +39,6 @@ app.get('/nested', (req, res) => {
   });
 });
 
-// Serve Sample-report.pdf (2457 KB)
 app.get('/pdf/1', (req, res) => {
   try {
     const filePath = path.join(uploadsDir, 'Sample-report.pdf');
@@ -68,7 +63,6 @@ app.get('/pdf/1', (req, res) => {
   }
 });
 
-// Serve Large-doc.pdf (37686 KB)
 app.get('/pdf/2', (req, res) => {
   try {
     const filePath = path.join(uploadsDir, 'Large-doc.pdf');
@@ -118,7 +112,6 @@ app.get('/webp/1', (req, res) => {
   }
 });
 
-// Serve Large WebP image (2000 KB)
 app.get('/webp/2', (req, res) => {
   try {
     const filePath = path.join(uploadsDir, 'large-image.webp');
@@ -143,7 +136,6 @@ app.get('/webp/2', (req, res) => {
   }
 });
 
-// Start the server
 const port = process.env.PORT || 3001;
 const host = process.env.HOST || '0.0.0.0';
 
