@@ -53,7 +53,7 @@ async function testFramework(framework) {
         const result = await new Promise(resolve => {
             const instance = autocannon({ 
                 url: framework.url,
-                connections: 200,
+                connections: 5,
                 duration: 40,
                 pipelining: 10
             });

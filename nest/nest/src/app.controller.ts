@@ -1,5 +1,4 @@
 import { Controller, Get, HttpException, HttpStatus, Res } from '@nestjs/common';
-import { AppService } from './app.service';
 import { Response } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -28,11 +27,11 @@ interface NestedResponse {
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
   @Get()
   getHello(): { message: string } {
-    return this.appService.getHello();
+    return { message: 'Hello World' };
   }
 
   @Get('json')
@@ -40,8 +39,8 @@ export class AppController {
     return { hello: 'world' };
   }
   
-  @Get('nested')
-  getNested(): NestedResponse {
+   @Get('nested')
+  getNested() {
     return {
       user: {
         name: 'John',

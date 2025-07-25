@@ -11,6 +11,27 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+
+
+app.on('error', (err, ctx) => {
+  if (err.code !== 'ECONNABORTED' && err.code !== 'ECONNRESET') {
+    console.error('Server error:', err);
+  }
+});
+
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    if (err.code === 'ECONNABORTED' || err.code === 'ECONNRESET') {
+      return;
+    }
+    ctx.status = err.status || 500;
+    ctx.body = { error: err.message };
+    ctx.app.emit('error', err, ctx);
+  }
+});
+
 router.get('/', async (ctx) => {
   ctx.type = 'application/json';
   ctx.body = { hello: 'world' };
@@ -156,4 +177,19 @@ const host = process.env.HOST || '0.0.0.0';
 
 app.listen(port, host, () => {
   console.log('Koa server running on http://localhost:3004');
+});
+
+// Handle server errors
+app.on('error', (err) => {
+  if (err.code !== 'ECONNABORTED' && err.code !== 'ECONNRESET') {
+    console.error('Server error:', err);
+  }
+});
+
+// Handle client connection errors
+app.on('clientError', (err, socket) => {
+  if (err.code !== 'ECONNABORTED' && err.code !== 'ECONNRESET') {
+    console.error('Client error:', err);
+  }
+  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
