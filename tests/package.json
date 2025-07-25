@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@koa/multer": "^4.0.0",
+    "autocannon": "^8.0.0",
+    "fs": "^0.0.1-security",
+    "pidusage": "^4.0.1",
+    "pm2": "^6.0.8"
+  }
+}

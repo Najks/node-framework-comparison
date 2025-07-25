@@ -1,0 +1,21 @@
+{
+  "name": "sails-server",
+  "version": "1.0.0",
+  "description": "A Sails.js server for framework comparison",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "sails",
+    "server",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "multer": "^2.0.2",
+    "sails": "^1.5.8"
+  }
+}

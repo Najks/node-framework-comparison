@@ -1,0 +1,21 @@
+{
+  "name": "restify-server",
+  "version": "1.0.0",
+  "description": "A Restify server for framework comparison",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "restify",
+    "server",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "multer": "^2.0.2",
+    "restify": "^11.1.0"
+  }
+}
