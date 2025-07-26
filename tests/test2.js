@@ -50,10 +50,25 @@ async function testFramework(framework) {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     try {
+        console.log(`  Warmup ${framework.name}...`);
+        await new Promise(resolve => {
+            const warmup = autocannon({ 
+                url: framework.url,
+                connections: 10,
+                duration: 3,
+                pipelining: 1
+            });
+            warmup.on('done', resolve);
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // 📊 ACTUAL TEST
+        console.log(`  Testing ${framework.name}...`);
         const result = await new Promise(resolve => {
             const instance = autocannon({ 
                 url: framework.url,
-                connections: 200,
+                connections: 100,
                 duration: 40,
                 pipelining: 10
             });
