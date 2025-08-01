@@ -1,7 +1,0 @@
-Framework,RPS,Throughput_KB/s,Latency_ms
-Fastify,78517,14414,12.2
-Restify,58831,11261,16.5
-Koa,56562,10329,17.2
-Express,17203,3847,57.6
-NestJS,13694,3370,72.5
-Sails,6035,1691,165

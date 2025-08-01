@@ -1,15 +1,7 @@
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
-
 const app = express();
 
 app.disable('x-powered-by');
-
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
 
 app.get('/', (req, res) => {
   res
@@ -37,103 +29,6 @@ app.get('/nested', (req, res) => {
       hobbies: ['cycling', 'reading']
     }
   });
-});
-
-app.get('/pdf/1', (req, res) => {
-  try {
-    const filePath = path.join(uploadsDir, 'Sample-report.pdf');
-    
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'Sample-report.pdf not found' });
-    }
-
-    const stats = fs.statSync(filePath);
-    
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Length', stats.size);
-    
-    const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
-
-  } catch (error) {
-    res.status(500).json({ 
-      error: 'Failed to serve Sample-report.pdf',
-      details: error.message 
-    });
-  }
-});
-
-app.get('/pdf/2', (req, res) => {
-  try {
-    const filePath = path.join(uploadsDir, 'Large-doc.pdf');
-    
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'Large-doc.pdf not found' });
-    }
-
-    const stats = fs.statSync(filePath);
-    
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Length', stats.size);
-    
-    const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
-
-  } catch (error) {
-    res.status(500).json({ 
-      error: 'Failed to serve Large-doc.pdf',
-      details: error.message 
-    });
-  }
-});
-
-// Serve Small WebP image (500 KB)
-app.get('/webp/1', (req, res) => {
-  try {
-    const filePath = path.join(uploadsDir, 'sample-image.webp');
-    
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'sample-image.webp not found' });
-    }
-
-    const stats = fs.statSync(filePath);
-    
-    res.setHeader('Content-Type', 'image/webp');
-    res.setHeader('Content-Length', stats.size);
-    
-    const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
-
-  } catch (error) {
-    res.status(500).json({ 
-      error: 'Failed to serve sample-image.webp',
-      details: error.message 
-    });
-  }
-});
-
-app.get('/webp/2', (req, res) => {
-  try {
-    const filePath = path.join(uploadsDir, 'large-image.webp');
-    
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'large-image.webp not found' });
-    }
-
-    const stats = fs.statSync(filePath);
-    
-    res.setHeader('Content-Type', 'image/webp');
-    res.setHeader('Content-Length', stats.size);
-    
-    const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
-
-  } catch (error) {
-    res.status(500).json({ 
-      error: 'Failed to serve large-image.webp',
-      details: error.message 
-    });
-  }
 });
 
 const port = process.env.PORT || 3001;
